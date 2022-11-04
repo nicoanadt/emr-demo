@@ -1,6 +1,6 @@
 # EMR Studio demo
 
-![Architecture]([https://myoctocat.com/assets/images/base-octocat.svg](https://raw.githubusercontent.com/nicoanadt/emr-demo/main/emr-studio-data-ingestion/resources/EMR%20Studio%20data%20ingestion%20job.png))
+![Architecture](https://raw.githubusercontent.com/nicoanadt/emr-demo/main/emr-studio-data-ingestion/resources/EMR%20Studio%20data%20ingestion%20job.png))
 
 
 Content of this folder
