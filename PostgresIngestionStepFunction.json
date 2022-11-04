@@ -1,0 +1,78 @@
+{
+    "Comment": "A description of my state machine",
+    "StartAt": "StartNotebookExecution",
+    "States": {
+      "StartNotebookExecution": {
+        "Type": "Task",
+        "Parameters": {
+          "EditorId": "e-BZQPM2KW62NDCT2KPVNNEAAA",
+          "ExecutionEngine": {
+            "Id": "j-K408OJH2AAA"
+          },
+          "RelativePath": "PostgresIngestionJob-Single.ipynb",
+          "ServiceRole": "arn:aws:iam::999999999999:role/EMRStudioServiceRole"
+        },
+        "Resource": "arn:aws:states:::aws-sdk:emr:startNotebookExecution",
+        "Next": "Wait"
+      },
+      "Wait": {
+        "Type": "Wait",
+        "Seconds": 2,
+        "Next": "DescribeNotebookExecution"
+      },
+      "DescribeNotebookExecution": {
+        "Type": "Task",
+        "Parameters": {
+          "NotebookExecutionId.$": "$.NotebookExecutionId"
+        },
+        "Resource": "arn:aws:states:::aws-sdk:emr:describeNotebookExecution",
+        "Next": "Choice"
+      },
+      "Choice": {
+        "Type": "Choice",
+        "Choices": [
+          {
+            "Variable": "$.NotebookExecution.Status",
+            "StringEquals": "FINISHED",
+            "Next": "SNS Success"
+          },
+          {
+            "Variable": "$.NotebookExecution.Status",
+            "StringEquals": "FAILED",
+            "Next": "SNS Failure"
+          }
+        ],
+        "Default": "Wait until completion",
+        "OutputPath": "$.NotebookExecution"
+      },
+      "Wait until completion": {
+        "Type": "Wait",
+        "Seconds": 5,
+        "Next": "DescribeNotebookExecution"
+      },
+      "SNS Failure": {
+        "Type": "Task",
+        "Resource": "arn:aws:states:::sns:publish",
+        "Parameters": {
+          "Message.$": "$",
+          "TopicArn": "arn:aws:sns:ap-southeast-1:999999999999:datapipeline-failure-notif"
+        },
+        "Next": "Fail"
+      },
+      "SNS Success": {
+        "Type": "Task",
+        "Resource": "arn:aws:states:::sns:publish",
+        "Parameters": {
+          "Message.$": "$",
+          "TopicArn": "arn:aws:sns:ap-southeast-1:999999999999:datapipeline-success-notif"
+        },
+        "Next": "Success"
+      },
+      "Success": {
+        "Type": "Succeed"
+      },
+      "Fail": {
+        "Type": "Fail"
+      }
+    }
+  }
