@@ -11,6 +11,6 @@ Content of this folder
 3. `ETLUtility.ipynb` : Additional transformation reusable functions
 4. `ETLUtility.py` : `ETLUtility.ipynb` converted to py for import from the main notebook
 
-This job can be orchestrated by a step function such as:
+### This job can be orchestrated by a AWS Step Function such as:
 
 ![Architecture](https://raw.githubusercontent.com/nicoanadt/emr-demo/main/emr-studio-data-ingestion/resources/StepFunctions.png))
