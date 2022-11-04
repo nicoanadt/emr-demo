@@ -10,3 +10,7 @@ Content of this folder
 2. `PostgresIngestionJob-Function.ipynb` : Require import of ETLUtility to get functions
 3. `ETLUtility.ipynb` : Additional transformation reusable functions
 4. `ETLUtility.py` : `ETLUtility.ipynb` converted to py for import from the main notebook
+
+This job can be orchestrated by a step function such as:
+
+![Architecture](https://raw.githubusercontent.com/nicoanadt/emr-demo/main/emr-studio-data-ingestion/resources/StepFunctions.png))
