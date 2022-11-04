@@ -51,7 +51,7 @@ def get_bookmark_value(v_bookmark_job_id):
     
     sql = "select job_id,bookmark_col, bookmark_val from etlfw_rs.bookmark_table where job_id ='" + v_bookmark_job_id + "'"
     v_cluster_identifier = 'lakehouse-redshift-cluster'
-    v_secret_arn = 'arn:aws:secretsmanager:ap-southeast-1:130835040051:secret:prod/redshift-DqEEI9'
+    v_secret_arn = 'arn:aws:secretsmanager:ap-southeast-1:99999999999:secret:prod/redshift-DqAAI9'
     v_database_name = 'dev'
     
     rsd = boto3.client('redshift-data', region_name='ap-southeast-1')
@@ -89,7 +89,7 @@ def update_bookmark_value(v_bookmark_job_id, v_new_bookmark_val):
     
     sql = "update etlfw_rs.bookmark_table set bookmark_val='" + v_new_bookmark_val + "' where job_id ='" + v_bookmark_job_id + "'"
     v_cluster_identifier = 'lakehouse-redshift-cluster'
-    v_secret_arn = 'arn:aws:secretsmanager:ap-southeast-1:130835040051:secret:prod/redshift-DqEEI9'
+    v_secret_arn = 'arn:aws:secretsmanager:ap-southeast-1:99999999999:secret:prod/redshift-DqAAI9'
     v_database_name = 'dev'
 
     rsd = boto3.client('redshift-data', region_name='ap-southeast-1')
